@@ -2,10 +2,15 @@
 // db_connect.php
 
 // SECURITY FIX: Centralized connection logic.
-// We should use a limited database user (e.g., 'app_user') instead of 'root'.
 $host = "localhost";
-$user = "root";  // Change this to 'app_user' if you created one in HeidiSQL
-$pass = "";      // Change this to the password you set for 'app_user'
+
+// configuration matching the report (Secure)
+$user = "app_user";          
+$pass = "secure_password";   
+
+// $user = "root";  // OLD unsecured default
+// $pass = "";
+
 $db   = "pwd_mgr";
 
 // Create connection

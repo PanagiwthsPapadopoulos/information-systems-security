@@ -29,8 +29,13 @@ CREATE TABLE IF NOT EXISTS `login_users` (
   UNIQUE KEY `user` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
-INSERT INTO `login_users` (`id`, `username`, `password`) VALUES
-	(1, 'u1', 'p1');
+/* INSERT INTO `login_users` (`id`, `username`, `password`) VALUES */
+/* (1, 'u1', 'p1'); */
+
+/* SECURITY FIX: Create the limited 'app_user' automatically */
+CREATE USER IF NOT EXISTS 'app_user'@'localhost' IDENTIFIED BY 'secure_password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON pwd_mgr.* TO 'app_user'@'localhost';
+FLUSH PRIVILEGES;
 
 CREATE TABLE IF NOT EXISTS `notes` (
   `notesid` int(11) NOT NULL AUTO_INCREMENT,
@@ -41,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `notes` (
   CONSTRAINT `FK_notes-login_users` FOREIGN KEY (`login_user_id`) REFERENCES `login_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
-INSERT INTO `notes` (`notesid`, `login_user_id`, `note`) VALUES
-	(1, 1, 'test1');
+/* INSERT INTO `notes` (`notesid`, `login_user_id`, `note`) VALUES */
+/*	(1, 1, 'test1'); */
 
 CREATE TABLE IF NOT EXISTS `websites` (
   `webid` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,8 +60,9 @@ CREATE TABLE IF NOT EXISTS `websites` (
   CONSTRAINT `FK_websites-login_users` FOREIGN KEY (`login_user_id`) REFERENCES `login_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
-INSERT INTO `websites` (`webid`, `login_user_id`, `web_url`, `web_username`, `web_password`) VALUES
-	(1, 1, 'www.test.com', 'tom', 'tompass');
+/* INSERT INTO `websites` (`webid`, `login_user_id`, `web_url`, `web_username`, `web_password`) VALUES */
+/*	(1, 1, 'www.test.com', 'tom', 'tompass'); */
+
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
